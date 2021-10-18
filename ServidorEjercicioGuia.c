@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
 	for (;;){
 		printf ("Escuchando\n");
 		sock_conn = accept(sock_listen, NULL, NULL);
-		printf ("Conexión establecida\n");
+		printf ("Conexiï¿³n establecida\n");
 		
 		
 		int end =0;
@@ -66,10 +66,34 @@ int main(int argc, char *argv[])
 				sprintf (respuesta,"%d",strlen (nombre));
 			else if (codigo ==2)
 				if((nombre[0]=='T') || (nombre[0]=='I'))
-				strcpy (respuesta,"SI");
+					strcpy (respuesta,"SI");
 				else
 					strcpy (respuesta,"NO");
+			else if (codigo ==4){
+				char nombre[30];
+				char nombre_inv[30] = {'\0'};
+				int i;
+				int len = strlen(nombre);
+				int End;
+			
+				for (i = len - 1; i >= 0; i--)
+					{
+						nombre_inv[len - i - 1] = nombre[i];
+					}
+				
+				for (i = 0; i < len; i++)
+					{
+						if (nombre_inv[i] == nombre[i])
+							End = 1;
+						else
+							End = 0;
+					}
+				if (End == 1)
+					sprintf(respuesta,"%s es palindrome \n", nombre);
 				else
+					sprintf(respuesta,"%s NO es palindrome \n", nombre);
+			}
+			else
 				{
 					p = strtok( NULL, "/");
 					float altura =  atof (p);
